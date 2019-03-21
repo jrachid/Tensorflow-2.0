@@ -14,14 +14,25 @@ fashion_mnist = tf.keras.datasets.fashion_mnist
 # Get a subpart
 images = images[:10000]
 targets = targets[:10000]
+# Before Normalization
+print("before normalization")
+print("Average", images.mean())
+print("std", images.std())
 
+# Normalization of the dataset to allow to modify weights quickly
 images = images.reshape(-1, 784)
 images = images.astype(float)
-scaler = StandardScaler()
+scaler = StandardScaler() # z=(x-average)/std
 images = scaler.fit_transform(images)
 
 print(images.shape)
 print(targets.shape)
+
+# After Normalization
+print("After Normalization")
+print("Average", images.mean())
+print("std", images.std())
+
 
 
 
