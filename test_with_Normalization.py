@@ -15,19 +15,28 @@ fashion_mnist = tf.keras.datasets.fashion_mnist
 images = images[:10000]
 targets = targets[:10000]
 
+images = images.reshape(-1, 784)
+images = images.astype(float)
+scaler = StandardScaler()
+images = scaler.fit_transform(images)
 
-class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 
-               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+print(images.shape)
+print(targets.shape)
 
-# Create the model
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Flatten(input_shape=[28,28]))
 
-# print("Shape of the image", images[0:1].shape)
-# model_output = model.predict(images[0:1])
-# print("Shape of the image after the flatten", model_output.shape)
 
-# Add the layers
-model.add(tf.keras.layers.Dense(256, activation='relu'))
-model.add(tf.keras.layers.Dense(128, activation='relu'))
-model.add(tf.keras.layers.Dense(10, activation='softmax'))
+# class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 
+#                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+
+# # Create the model
+# model = tf.keras.models.Sequential()
+# model.add(tf.keras.layers.Flatten(input_shape=[28,28]))
+
+# # print("Shape of the image", images[0:1].shape)
+# # model_output = model.predict(images[0:1])
+# # print("Shape of the image after the flatten", model_output.shape)
+
+# # Add the layers
+# model.add(tf.keras.layers.Dense(256, activation='relu'))
+# model.add(tf.keras.layers.Dense(128, activation='relu'))
+# model.add(tf.keras.layers.Dense(10, activation='softmax'))
