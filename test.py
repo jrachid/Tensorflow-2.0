@@ -19,6 +19,43 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=[28,28]))
 
-print("Shape of the image", images[0:1].shape)
+# print("Shape of the image", images[0:1].shape)
+# model_output = model.predict(images[0:1])
+# print("Shape of the image after the flatten", model_output.shape)
+
+# Add the layers
+model.add(tf.keras.layers.Dense(256, activation='relu'))
+model.add(tf.keras.layers.Dense(128, activation='relu'))
+model.add(tf.keras.layers.Dense(10, activation='softmax'))
+
+# First prediction
 model_output = model.predict(images[0:1])
-print("Shape of the image after the flatten", model_output.shape)
+print(model_output, targets[0:1])
+
+model.summary()
+
+# Compile the model
+model.compile(
+    loss = 'sparse_categorical_crossentropy',
+    optimizer='sgd', # stocastic gradient descent
+    metrics=['accuracy']
+)
+
+# Train the model
+history = model.fit(images, targets, epochs=10)
+
+# New prediction
+model_output = model.predict(images[0:1])
+print(model_output, targets[0:1])
+
+# loss curve
+loss_curve = history.history["loss"]
+acc_curve = history.history["accuracy"]
+
+plt.plot(loss_curve)
+plt.title("Loss")
+plt.show()
+
+plt.plot(acc_curve)
+plt.title("Accuracy")
+plt.show()
