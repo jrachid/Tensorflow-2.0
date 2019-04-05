@@ -38,7 +38,7 @@ model.compile(
 )
 
 # Train the model only on images_train and targets_train
-history = model.fit(images_train, targets_train, epochs=50, validation_split=0.2)
+history = model.fit(images_train, targets_train, epochs=100, validation_split=0.2)
 
 # loss and val_loss curves
 loss = history.history["loss"]
@@ -59,4 +59,5 @@ plt.legend(loc="upper left")
 plt.title("Accuracy")
 plt.show()
 
-model.evaluate(images_test, targets_test)
+# Save the Model
+model.save('Models\\simple_model.h5')
